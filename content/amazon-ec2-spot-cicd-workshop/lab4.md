@@ -42,7 +42,7 @@ While the CloudFormation template that was deployed during the Workshop Preparat
     2. Change the Fleet Composition to **Combine purchase options and instances** - Selecting this option should reveal additional choices. The Launch Template selected previously does not specify what purchasing model should be used for these instances and the default option will see on-demand instances launched;
     3. At the Intance Types section, add **t3.large**, **t2.medium** and **t2.large** instance types to the Auto Scaling Group configuration;
     4. Remove the tick from the **Instances Distribution** checkbox so that you can explore the additional configuration options;
-    5. As you don't have a specific price objective to meet for your ECS cluster, leave the Maximum Spot Price using default bidding. Also leave the Spot Allocation Strategy so that instances are diversified across the 2 lowest priced instances types per Availability Zone (this will typically ensure that the medium-sized instances will almost always be used when instances are launched, but the large instances are able to be used if something unexpected happens to the availability or market price of the medium instances);
+    5. Leave the Spot Allocation Strategy so that instances are diversified across the 2 lowest priced instances types per Availability Zone (this will typically ensure that the medium-sized instances will almost always be used when instances are launched, but the large instances are able to be used if EC2 needs to claim back capacity on the medium instances capacity pools);
     6. While you could run the entire Auto Scaling Group using Spot instances, it might be more desirable to have a portion of the Auto Scaling Group running on-demand instances, to provide a little more assurance that the container running your Jenkins server will always be running. In order to do this, set the Optional On-Demand Base such that you designate the first **1** instance as On-Demand, and then change the On-Demand Percentage Above Base to be **0%** On-Demand and 100% Spot;
     7. Change the Group size to start with **2** instances;
     8. Select the **Amazon EC2 Spot CICD Workshop VPC** from the Network dropdown;
@@ -127,9 +127,10 @@ When you launched build agents using Spot instances, you took advantage of the f
     7. Enter **ecs-agents** into the Label field;
     8. Type **ECSBuildAgent** into the Template Name field;
     9. Enter **cloudbees/jnlp-slave-with-java-build-tools** into the Docker Image field - this is the Docker image that will be used when launching your build agent containers;
-    10. Set the Hard Memory Reservation to **1536** and the CPU units to **512*;
-    11. Click on the **Advanced** button;
-    12. In the Task Role ARN field, enter the value specified by the **JenkinsIAMRoleARN** key obtained at the beginning of this lab (it should be of the format arn:aws:iam::account\_number:role/SpotCICDWorkshop-IAMRoleJenkins-random_chars).
+    10. Select **awsvpc** in the Network mode field. Then on the Subnets box, introduce the list of Public Subnets from the Cloudformation outputs. Also in the Security Group box, configure the security group from JenkinsMasterSecurityGroup output. 
+    11. Set the Hard Memory Reservation to **1536** and the CPU units to **512**;
+    12. Click on the **Advanced** button;
+    13. In the Task Role ARN field, enter the value specified by the **JenkinsIAMRoleARN** key obtained at the beginning of this lab (it should be of the format arn:aws:iam::account\_number:role/SpotCICDWorkshop-IAMRoleJenkins-random_chars).
 5. Click on the **Save** button at the bottom of the page.
 
 ## CANCEL THE EC2 SPOT FLEET REQUEST FOR YOUR BUILD AGENTS

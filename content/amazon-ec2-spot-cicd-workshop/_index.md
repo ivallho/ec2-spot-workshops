@@ -6,7 +6,7 @@ pre: "<b>⁃ </b>"
 ---
 
 ## Overview 
-During this workshop, you'll get hands-on with Amazon EC2 Spot and discover architectural best practices through the lens of DevOps and CI/CD. You'll deploy Jenkins build agents and test environments on Spot instances at a fraction of the cost of on-demand instances. You'll also implement mechanisms to ensure that your CI/CD tooling recovers from spot market events by decoupling application state from your compute resources. Finally, you'll migrate your CI/CD environment to a containered environment to eke out maximum performance and cost efficiency. In addition to covering the ins and outs of Spot, we'll share some of the Spot-based mechanisms used by customers to reduce the cost of their test and production workloads.
+During this workshop, you'll get hands-on with Amazon EC2 Spot and discover architectural best practices through the lens of DevOps and CI/CD. You'll deploy Jenkins build agents and test environments on Spot instances at a fraction of the cost of on-demand instances. You'll also implement mechanisms to ensure that your CI/CD tooling recovers from spot interruptions by decoupling application state from your compute resources. Finally, you'll migrate your CI/CD environment to a containerized environment to achieve maximum performance and cost efficiency. In addition to covering the ins and outs of Spot, we'll share some of the Spot-based mechanisms used by customers to reduce the cost of their test and production workloads.
 
 ## Workshop Details
 This workshop will be broken down into a series of labs that flow on from each other (that is, you must complete each lab in order before proceeding with the next). The lab exercises that will be covered are:

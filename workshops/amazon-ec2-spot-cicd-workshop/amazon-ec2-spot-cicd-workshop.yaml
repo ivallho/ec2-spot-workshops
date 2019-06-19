@@ -580,13 +580,11 @@ Resources:
         FromPort: 8080
         ToPort: 8080
         CidrIp: 192.168.0.0/21
-      - Description: JNLP (50000) access from hosts within the Spot CICD Workshop VPC - required for Build Agent deployments on ECS nodes to communicate back with the Jenkins Master container. 
+      - Description: JNLP (5000) access from hosts within the Spot CICD Workshop VPC - required for Build Agent deployments on ECS nodes to communicate back with the Jenkins Master container. 
         IpProtocol: tcp
-        FromPort: 50000
-        ToPort: 50000
-        #CidrIp: 192.168.0.0/21 
-        # Limited CIDR commeted out as we had an issue in the forst re:Invent workshop that needs further investigation
-        CidrIp: 0.0.0.0/0
+        FromPort: 5000
+        ToPort: 5000
+        CidrIp: 192.168.0.0/21 
       VpcId: !Ref VPC
 
   SecurityGroupJenkinsALB: # A Security Group that allows ingress access for HTTP on ALBs and used to access the Jenkins Master
@@ -629,7 +627,7 @@ Resources:
         S3Key: amilookup.zip
       Handler: amilookup.handler
       Role: !GetAtt IAMRoleAMILookupLambdaExecution.Arn
-      Runtime: nodejs6.10
+      Runtime: nodejs8.10
       Timeout: 30
 
   EC2AMILookupCustomResource: # A custom resource that provides the latest Amazon Linux AMI via EC2AMILookupCustomResource.Id
@@ -668,7 +666,7 @@ Resources:
       Handler: index.handler
       MemorySize: 128
       Role: !GetAtt IAMRoleTestEnvironmentLambdaExecution.Arn
-      Runtime: nodejs6.10
+      Runtime: nodejs8.10
       Timeout: 60
       Code:
         ZipFile: !Sub |
@@ -1280,3 +1278,11 @@ Outputs:
   JenkinsIAMRoleARN:
     Description: The ARN associated with the IAM Role that was created for use by Jenkins.
     Value: !GetAtt IAMRoleJenkins.Arn
+  
+  JenkinsVPCPublicSubnets:
+    Description:  The public subnets where Jenkins will be deployed. Use this value to configure Jenkins ECS plugin
+    Value: !Join [",", [!Ref SubnetPublicA, !Ref SubnetPublicB, !Ref SubnetPublicC]]
+
+  JenkinsMasterSecurityGroup:
+    Description: Security Group for Jenkins nodes. Use this value to configure Jenkins ECS Plugin
+    Value: !Ref SecurityGroupJenkins
