@@ -14,7 +14,7 @@ As was the case with Lab 3, you will need a value from the Outputs tab of the Cl
 {{%expand "Click to reveal detailed instructions" %}}
 1. Go to the **CloudFormation** console (or [click here](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#));
 2. Click on the checkbox associated with the **SpotCICDWorkshop** stack;
-3. From the Outputs tab of the SpotCICDWorkshop stack in the CloudFormation console, make note of value associated with the **JenkinsIAMUserARN** key.
+3. From the Outputs tab of the SpotCICDWorkshop stack in the CloudFormation console, make note of value associated with the **JenkinsIAMRoleARN** key.
 {{% /expand%}}
 
 ## INSPECT THE ECSLAUNCHTEMPLATE LAUNCH TEMPLATE
